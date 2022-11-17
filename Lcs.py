@@ -8,8 +8,8 @@ def lcs(string1, string2):
         c[i][0] = 0
     for j in range(0, n):
         c[0][j] = 0
-    for i in range(1, m):
-        for j in range(1, n):
+    for j in range(1, n):
+        for i in range(1, m):
             if string1[i] == string2[j]:
                 c[i][j] = c[i - 1][j - 1] + 1
             elif c[i - 1][j] >= c[i][j - 1]:
