@@ -24,11 +24,14 @@ def giveMeHugeArray():
     return array
 #generowanie malej tablicy w ramach testu
 def giveMeSmallArray():
-    array = [11, 9, 29, 7, 4, 6, 1, 8, 5, 8, 8, 3, 6, 65, 12, 54, 21, 66, 12, 43, 123, 43, 66, 3, 69, 1, 4, 6]
+    array = []
+    numberOfElements = random.randint(10, 1000)
+    for x in range(0, numberOfElements):
+        array.append(random.randint(0, 100))
     return array
 
 ################################################QuickSort###############################################################
-def quickSort(array, left, right, ):
+def quickSort(array, left, right):
     if left < right:
         q = partition(array, left, right)
         quickSort(array, left, q - 1)
@@ -57,7 +60,6 @@ def heapSort(array):
         heapify(array, i, 0)
     return array
 
-
 def heapify(array, n, i):
     largest = i
     left = 2 * i
@@ -79,18 +81,16 @@ def bubbleSort(array):
                 array[j], array[j+1] = array[j+1], array[j]
     return array
 ########################################################################################################################
-# setup
-arrayToSort = giveMeHugeArray()
-# arrayToSort = giveMeSmallArray()
+# arrayToSort = giveMeHugeArray()
+arrayToSort = giveMeSmallArray()
 arrayLenght = len(arrayToSort)
 
 
 # QuickSort
-
 t = time.process_time()
 sortedArray = quickSort(arrayToSort, 0, arrayLenght-1)
 qs_execution_time = time.process_time() - t
-# print(sortedArray)
+print(sortedArray)
 
 t = time.process_time()
 quickSort(sortedArray, 0, arrayLenght-1)
@@ -105,7 +105,7 @@ qs3_execution_time = time.process_time() - t
 t = time.process_time()
 sortedArray = heapSort(arrayToSort)
 hs_execution_time = time.process_time() - t
-# print(sortedArray)
+print(sortedArray)
 
 t = time.process_time()
 heapSort(sortedArray)
@@ -120,7 +120,7 @@ hs3_execution_time = time.process_time() - t
 t = time.process_time()
 sortedArray = bubbleSort(arrayToSort)
 bs_execution_time = time.process_time() - t
-# print(sortedArray)
+print(sortedArray)
 
 t = time.process_time()
 bubbleSort(sortedArray)
