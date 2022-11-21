@@ -20,7 +20,7 @@ def giveMeHugeArray():
     array = []
     numberOfElements = random.randint(100000, 1000000)
     for x in range(0, numberOfElements):
-        array.append(random.randint(0, 100000))
+        array.append(random.randint(0, 5000))
     return array
 #generowanie malej tablicy w ramach testów
 def giveMeSmallArray():
@@ -37,7 +37,6 @@ def quickSort(array, left, right):
         quickSort(array, left, q - 1)
         quickSort(array, q + 1, right)
     return array
-
 
 def partition(array, left, right):
     # pivot = array[right]
@@ -110,18 +109,18 @@ print("Wielkość tablicy: ", arrayLenght, "\nrozpoczynam sortowanie...")
 t = time.process_time()
 sortedArray = quickSort(arrayToSort, 0, arrayLenght-1)
 qs_execution_time = time.process_time() - t
-print("skonczylem quicksort 1/3")
+print("skonczylem Quicksort 1/3")
 # print(sortedArray)
 
 t = time.process_time()
 quickSort(sortedArray, 0, arrayLenght-1)
 qs2_execution_time = time.process_time() - t
-print("skonczylem quicksort 2/3")
+print("skonczylem Quicksort 2/3")
 sortedArray.reverse()
 t = time.process_time()
 quickSort(sortedArray, 0, arrayLenght-1)
 qs3_execution_time = time.process_time() - t
-print("skonczylem quicksort 3/3")
+print("skonczylem Quicksort 3/3")
 
 # HeapSort
 t = time.process_time()
@@ -139,7 +138,7 @@ heapSort(sortedArray)
 hs3_execution_time = time.process_time() - t
 print("skonczylem HeapSort 3/3")
 
-#BubbleSort
+#MergeSort
 t = time.process_time()
 sortedArray = mergeSort(arrayToSortBS)
 ms_execution_time = time.process_time() - t
