@@ -103,8 +103,8 @@ zakodowany_text = encode(text, codes)
 
 print("\nZakodowany tekst: "+zakodowany_text)
 # zapis zakodowanego tekstu do pliku jako kod binarny
-with open("zakodowany", "wb") as f:
-    f.write(int(zakodowany_text, 2).to_bytes(len(zakodowany_text) // 8, byteorder='big'))
+with open("zakodowany", "wb") as file:
+    file.write(int(zakodowany_text, 2).to_bytes(len(zakodowany_text) // 8, byteorder='big'))
 
 # porownanie wielkosci plikow przed i po zakodowaniu
 print("\nRozmiar originalnego pliku tekstowego: ", os.path.getsize("tekst.txt"), "B")
