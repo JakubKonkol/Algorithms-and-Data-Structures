@@ -1,7 +1,9 @@
 # Jakub Konkol S24406
-
+import os
 # tekst do zakodowania
-text = "kocham asd"
+with open("tekst.txt", "r") as file:
+    text = file.read()
+# text = "kocham asd"
 
 
 # zliczanie wystapien znakow
@@ -15,11 +17,11 @@ def getUniqueCharacters(txt):
     return chars
 
 
-znaki = getUniqueCharacters(text)
+znakiZ = getUniqueCharacters(text)
 # wypisanie znakow
 print("\nZnaki:")
-for i in znaki:
-    print(i + ":", znaki[i])
+for i in znakiZ:
+    print(i + ":", znakiZ[i])
 print("\n Kody znaków:")
 
 # struktura drzewa
@@ -35,14 +37,33 @@ class Node:
 
     def __repr__(self):
         return str(self.value)
+def heapSort(array):
+    n = len(array)
+    for i in range(n//2 - 1, -1, -1):
+        heapify(array, n, i)
+    for i in range(n-1, 0, -1):
+        array[i], array[0] = array[0], array[i]
+        heapify(array, i, 0)
+    return array
 
+def heapify(array, n, i):
+    largest = i
+    left = 2 * i
+    right = 2 * i + 1
+    if left < n and array[i] < array[left]:
+        largest = left
+    if right < n and array[largest] < array[right]:
+        largest = right
+    if largest != i:
+        array[i], array[largest] = array[largest], array[i]
+        heapify(array, n, largest)
 # stworzenie drzewa
 def createTree(znaki):
     nodes = []
     for key, value in znaki.items():
         nodes.append(Node(key, value))
     while len(nodes) > 1:
-        nodes = sorted(nodes)
+        nodes = heapSort(nodes)
         node1 = nodes[0]
         node2 = nodes[1]
         node3 = Node(None, node1.value + node2.value)
@@ -72,11 +93,19 @@ def encode(txt, code):
         encoded += code[char]
     return encoded
 
-tree = createTree(znaki)
+tree = createTree(znakiZ)
 codes = createCode(tree, "", {})
 for i in codes:
     print(i + ":", codes[i])
 print("\nWprowadzony tekst:", text)
-zakodowany_text = encode(text, codes)
-print("\nZakodowany tekst: "+zakodowany_text)
 
+zakodowany_text = encode(text, codes)
+
+print("\nZakodowany tekst: "+zakodowany_text)
+# zapis zakodowanego tekstu do pliku jako kod binarny
+with open("zakodowany", "wb") as f:
+    f.write(int(zakodowany_text, 2).to_bytes(len(zakodowany_text) // 8, byteorder='big'))
+
+# porownanie wielkosci plikow przed i po zakodowaniu
+print("\nRozmiar originalnego pliku tekstowego: ", os.path.getsize("tekst.txt"), "B")
+print("Rozmiar pliku zakodowanego: ", os.path.getsize("zakodowany"), "B")
